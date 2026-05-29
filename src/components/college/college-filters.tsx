@@ -16,7 +16,7 @@ import { Separator } from "@/components/ui/separator";
 import { useFilterStore } from "@/store/filter-store";
 import { INDIAN_STATES, SORT_OPTIONS, OWNERSHIP_LABELS, NAAC_LABELS } from "@/lib/constants";
 
-function FilterContent() {
+export function FilterContent() {
   const filters = useFilterStore();
   const activeCount = [
     filters.state, filters.city, filters.minFees, filters.maxFees,
@@ -159,44 +159,31 @@ function FilterContent() {
   );
 }
 
+/** Mobile-only filter trigger — opens a bottom sheet */
 export function CollegeFilters() {
   const activeCount = useFilterStore((s) => {
     return [s.state, s.city, s.minFees, s.maxFees, s.minRating, s.ownership, s.naacGrade, s.course].filter(Boolean).length;
   });
 
   return (
-    <>
-      {/* Desktop sidebar */}
-      <aside className="hidden lg:block w-72 shrink-0">
-        <div className="sticky top-20 rounded-xl border bg-card p-5">
-          <ScrollArea className="h-[calc(100vh-8rem)]">
-            <FilterContent />
-          </ScrollArea>
-        </div>
-      </aside>
-
-      {/* Mobile bottom sheet trigger */}
-      <div className="lg:hidden">
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="outline" size="sm" className="gap-2">
-              <SlidersHorizontal className="h-4 w-4" />
-              Filters
-              {activeCount > 0 && (
-                <Badge variant="secondary" className="text-xs ml-1">{activeCount}</Badge>
-              )}
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="bottom" className="max-h-[80vh]">
-            <SheetHeader>
-              <SheetTitle>Filter Colleges</SheetTitle>
-            </SheetHeader>
-            <ScrollArea className="h-[60vh] mt-4 pr-4">
-              <FilterContent />
-            </ScrollArea>
-          </SheetContent>
-        </Sheet>
-      </div>
-    </>
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant="outline" size="sm" className="gap-2 rounded-xl ios-press shrink-0">
+          <SlidersHorizontal className="h-4 w-4" />
+          Filters
+          {activeCount > 0 && (
+            <Badge variant="secondary" className="text-xs ml-1">{activeCount}</Badge>
+          )}
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="bottom" className="max-h-[80vh] rounded-t-2xl">
+        <SheetHeader>
+          <SheetTitle>Filter Colleges</SheetTitle>
+        </SheetHeader>
+        <ScrollArea className="h-[60vh] mt-4 pr-4">
+          <FilterContent />
+        </ScrollArea>
+      </SheetContent>
+    </Sheet>
   );
 }

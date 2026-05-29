@@ -3,10 +3,11 @@
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { CollegeCard } from "@/components/college/college-card";
-import { CollegeFilters } from "@/components/college/college-filters";
+import { CollegeFilters, FilterContent } from "@/components/college/college-filters";
 import { SearchBar } from "@/components/shared/search-bar";
 import { SkeletonCard } from "@/components/shared/skeleton-card";
 import { EmptyState } from "@/components/shared/empty-state";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useColleges } from "@/hooks/use-colleges";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { useFilterStore } from "@/store/filter-store";
@@ -58,6 +59,10 @@ export default function CollegesPage() {
 
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <SearchBar value={search || ""} onChange={setSearch} placeholder="Search by college name..." className="flex-1" />
+        {/* Mobile filter trigger — sits next to search */}
+        <div className="sm:contents lg:hidden">
+          <CollegeFilters />
+        </div>
       </div>
 
       {!isLoading && (
@@ -67,12 +72,18 @@ export default function CollegesPage() {
       )}
 
       <div className="flex gap-8">
-        {/* CollegeFilters handles both desktop sidebar and mobile sheet trigger */}
-        <CollegeFilters />
+        {/* Desktop sidebar — hidden on mobile (filter is in search row above) */}
+        <aside className="hidden lg:block w-72 shrink-0">
+          <div className="sticky top-20 rounded-xl border bg-card p-5">
+            <ScrollArea className="h-[calc(100vh-8rem)]">
+              <FilterContent />
+            </ScrollArea>
+          </div>
+        </aside>
 
         <div className="flex-1 min-w-0">
           {isLoading ? (
-            <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
               {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
             </div>
           ) : colleges.length === 0 ? (
@@ -85,7 +96,7 @@ export default function CollegesPage() {
             />
           ) : (
             <>
-              <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
                 {colleges.map((college, i) => (
                   <CollegeCard key={`${college.id}-${i}`} college={college} index={i} />
                 ))}
