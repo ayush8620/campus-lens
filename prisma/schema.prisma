@@ -1,0 +1,189 @@
+// CampusLens - College Discovery Platform
+// Prisma Schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Enums ────────────────────────────────────────────
+
+enum OwnershipType {
+  GOVERNMENT
+  PRIVATE
+  PUBLIC_PRIVATE
+  DEEMED
+  AUTONOMOUS
+}
+
+enum NAACGrade {
+  A_PLUS_PLUS
+  A_PLUS
+  A
+  B_PLUS_PLUS
+  B_PLUS
+  B
+  C
+  NOT_ACCREDITED
+}
+
+enum ExamType {
+  JEE_MAIN
+  JEE_ADVANCED
+  CUET
+  AKTU
+  NEET
+  BITSAT
+  VITEEE
+  COMEDK
+  MET
+  STATE_CET
+}
+
+enum Category {
+  GENERAL
+  OBC
+  SC
+  ST
+  EWS
+}
+
+// ─── Models ───────────────────────────────────────────
+
+model College {
+  id               String        @id @default(cuid())
+  name             String
+  slug             String        @unique
+  description      String        @db.Text
+  shortDescription String?
+  logo             String?
+  bannerImage      String?
+  images           String[]
+  website          String?
+
+  // Location
+  city      String
+  state     String
+  address   String?
+  pincode   String?
+  latitude  Float?
+  longitude Float?
+
+  // Academics
+  established   Int?
+  ownershipType OwnershipType
+  naacGrade     NAACGrade?
+  nirfRanking   Int?
+  rating        Float         @default(0)
+  accreditation String[]
+
+  // Fees
+  avgFees Float
+  minFees Float?
+  maxFees Float?
+
+  // Facilities
+  hostel          Boolean @default(false)
+  wifi            Boolean @default(false)
+  library         Boolean @default(false)
+  sports          Boolean @default(false)
+  lab             Boolean @default(false)
+  cafeteria       Boolean @default(false)
+  medicalFacility Boolean @default(false)
+
+  // Relations
+  courses    Course[]
+  placements PlacementStats?
+  reviews    Review[]
+  savedBy    SavedCollege[]
+  cutoffs    CutoffData[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([state])
+  @@index([city])
+  @@index([rating])
+  @@index([avgFees])
+  @@index([ownershipType])
+  @@index([naacGrade])
+}
+
+model Course {
+  id          String  @id @default(cuid())
+  name        String
+  duration    String
+  fees        Float
+  eligibility String? @db.Text
+  seats       Int?
+
+  collegeId String
+  college   College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+
+  @@index([collegeId])
+}
+
+model PlacementStats {
+  id             String   @id @default(cuid())
+  averagePackage Float
+  highestPackage Float
+  medianPackage  Float?
+  placementRate  Float
+  topRecruiters  String[]
+  year           Int      @default(2024)
+
+  collegeId String  @unique
+  college   College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id       String @id @default(cuid())
+  userId   String
+  userName String
+  rating   Float
+  title    String
+  content  String @db.Text
+  pros     String?
+  cons     String?
+
+  collegeId String
+  college   College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([collegeId])
+  @@index([userId])
+}
+
+model SavedCollege {
+  id     String @id @default(cuid())
+  userId String
+
+  collegeId String
+  college   College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, collegeId])
+  @@index([userId])
+}
+
+model CutoffData {
+  id          String   @id @default(cuid())
+  exam        ExamType
+  year        Int      @default(2024)
+  category    Category
+  branch      String
+  openingRank Int
+  closingRank Int
+
+  collegeId String
+  college   College @relation(fields: [collegeId], references: [id], onDelete: Cascade)
+
+  @@index([exam, category, branch])
+  @@index([collegeId])
+}
