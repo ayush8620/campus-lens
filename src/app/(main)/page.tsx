@@ -121,90 +121,128 @@ export default function HomePage() {
 
   return (
     <div className="relative">
-      {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-violet-500/5" />
-        <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
-        <div className="absolute bottom-20 right-10 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
+      {/* Premium Hero */}
+      <section className="relative overflow-hidden min-h-[90vh] flex items-center justify-center">
+        {/* Animated Mesh Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-background z-0" />
+        <div className="absolute inset-0 opacity-40 dark:opacity-20 z-0">
+          <div className="absolute top-[-10%] left-[-10%] h-[50vh] w-[50vw] rounded-full bg-primary/30 blur-[120px] mix-blend-multiply animate-float" />
+          <div className="absolute bottom-[-10%] right-[-10%] h-[50vh] w-[50vw] rounded-full bg-violet-500/30 blur-[120px] mix-blend-multiply animate-float" style={{ animationDelay: "2s" }} />
+          <div className="absolute top-[40%] left-[40%] h-[30vh] w-[30vw] rounded-full bg-indigo-500/20 blur-[100px] mix-blend-multiply animate-float" style={{ animationDelay: "4s" }} />
+        </div>
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 sm:py-32 lg:py-40">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32 lg:pb-40 pt-28 sm:pt-36 lg:pt-40 flex flex-col items-center">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+            className="text-center max-w-4xl mx-auto flex flex-col items-center"
           >
-            <Badge variant="secondary" className="mb-6 px-4 py-1.5 text-sm">
-              🎓 Trusted by 10,000+ students
+            <Badge variant="outline" className="mb-8 px-4 py-1.5 text-sm rounded-full border-primary/30 bg-primary/5 text-primary backdrop-blur-md">
+              <span className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                </span>
+                Trusted by 10,000+ students
+              </span>
             </Badge>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              Discover Your{" "}
+            
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+              Discover Your <br className="hidden sm:block" />
               <span className="gradient-text">Perfect College</span>
             </h1>
-            <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+            
+            <p className="text-lg sm:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
               Explore 150+ top colleges across India. Compare fees, placements, and ratings.
               Make data-driven decisions for your academic future.
             </p>
 
-            <form onSubmit={handleSearch} className="flex gap-3 max-w-xl mx-auto mb-8">
-              <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <motion.form 
+              onSubmit={handleSearch} 
+              className="w-full max-w-2xl mx-auto mb-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              <div className="relative flex items-center p-2 premium-glass-card rounded-2xl premium-shadow">
+                <Search className="absolute left-6 h-5 w-5 text-muted-foreground" />
                 <Input
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search colleges by name..."
-                  className="pl-12 h-13 text-base rounded-xl"
+                  placeholder="Search colleges, courses, or cities..."
+                  className="pl-14 h-14 text-lg border-0 bg-transparent shadow-none focus-visible:ring-0 rounded-xl"
                 />
+                <Button type="submit" size="lg" className="rounded-xl px-8 h-12 text-base font-semibold ios-press shrink-0">
+                  Search
+                </Button>
               </div>
-              <Button type="submit" size="xl" className="rounded-xl px-8">
-                Search
-              </Button>
-            </form>
+            </motion.form>
 
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            <motion.div 
+              className="flex flex-wrap items-center justify-center gap-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+            >
               <Link href="/colleges">
-                <Button variant="outline" size="lg" className="rounded-xl gap-2">
-                  <GraduationCap className="h-4 w-4" />
+                <Button variant="outline" size="lg" className="rounded-xl gap-2 h-12 px-6 ios-press bg-background/50 backdrop-blur-sm border-border/50 hover:bg-background/80">
+                  <GraduationCap className="h-5 w-5" />
                   Explore All Colleges
                 </Button>
               </Link>
               <Link href="/predictor">
-                <Button variant="ghost" size="lg" className="rounded-xl gap-2">
-                  <Brain className="h-4 w-4" />
+                <Button variant="ghost" size="lg" className="rounded-xl gap-2 h-12 px-6 ios-press hover:bg-primary/10 hover:text-primary">
+                  <Brain className="h-5 w-5" />
                   Try College Predictor
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-5 w-5" />
                 </Button>
               </Link>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 border-y bg-muted/30">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {/* Premium Stats */}
+      <section className="py-16 border-y border-border/40 relative overflow-hidden">
+        <div className="absolute inset-0 bg-muted/20 backdrop-blur-3xl" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <motion.div {...fadeInUp} className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold gradient-text mb-1">
+            {stats.map((stat, i) => (
+              <motion.div 
+                key={stat.label} 
+                className="text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+              >
+                <div className="text-4xl sm:text-5xl font-extrabold gradient-text mb-2 tracking-tight">
                   <AnimatedCounter target={stat.value} suffix={stat.suffix} />
                 </div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
-              </div>
+                <div className="text-sm font-medium text-muted-foreground uppercase tracking-widest">{stat.label}</div>
+              </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <motion.div {...fadeInUp} className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">
+      {/* Premium Features */}
+      <section className="py-24 sm:py-32 relative">
+        <div className="absolute top-1/2 left-0 w-72 h-72 bg-primary/5 rounded-full blur-[100px] -translate-y-1/2" />
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl sm:text-5xl font-bold mb-6 tracking-tight">
               Everything You Need to{" "}
               <span className="gradient-text">Decide</span>
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               Powerful tools designed to simplify your college search and help you make the best decision.
             </p>
           </motion.div>
@@ -213,18 +251,19 @@ export default function HomePage() {
             {features.map((feature, i) => (
               <motion.div
                 key={feature.title}
-                {...stagger}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="h-full"
               >
-                <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-border/50">
-                  <CardContent className="p-6">
-                    <div className={`inline-flex h-12 w-12 items-center justify-center rounded-xl ${feature.bg} mb-4`}>
-                      <feature.icon className={`h-6 w-6 ${feature.color}`} />
-                    </div>
-                    <h3 className="font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-                  </CardContent>
-                </Card>
+                <div className="h-full p-8 rounded-3xl premium-glass-card transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group">
+                  <div className={`inline-flex h-14 w-14 items-center justify-center rounded-2xl ${feature.bg} mb-6 transition-transform duration-300 group-hover:scale-110`}>
+                    <feature.icon className={`h-7 w-7 ${feature.color}`} />
+                  </div>
+                  <h3 className="font-semibold text-xl mb-3">{feature.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                </div>
               </motion.div>
             ))}
           </div>

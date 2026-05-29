@@ -31,24 +31,24 @@
 }
 
 .dark {
-  --background: 240 10% 3.9%;
+  --background: 240 10% 2%; /* Deep OLED-like black */
   --foreground: 0 0% 98%;
-  --card: 240 10% 5.5%;
+  --card: 240 5% 4%; /* Very dark gray for depth */
   --card-foreground: 0 0% 98%;
-  --popover: 240 10% 5.5%;
+  --popover: 240 5% 4%;
   --popover-foreground: 0 0% 98%;
   --primary: 263 70% 65%;
   --primary-foreground: 0 0% 100%;
-  --secondary: 240 3.7% 15.9%;
+  --secondary: 240 5% 10%;
   --secondary-foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
+  --muted: 240 5% 10%;
   --muted-foreground: 240 5% 64.9%;
-  --accent: 240 3.7% 15.9%;
+  --accent: 240 5% 10%;
   --accent-foreground: 0 0% 98%;
   --destructive: 0 62.8% 50.6%;
   --destructive-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
+  --border: 240 5% 12%; /* Subtle borders */
+  --input: 240 5% 12%;
   --ring: 263 70% 65%;
   --chart-1: 263 70% 65%;
   --chart-2: 160 60% 45%;
@@ -95,7 +95,42 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    letter-spacing: -0.01em; /* Premium typography feel */
   }
+  
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.02em; /* Tighter headings */
+  }
+}
+
+/* ─── Premium UI Utilities ─── */
+.premium-shadow {
+  box-shadow: 
+    0 20px 40px -15px hsl(0 0% 0% / 0.05),
+    0 10px 20px -10px hsl(0 0% 0% / 0.04),
+    0 4px 8px -4px hsl(0 0% 0% / 0.03);
+}
+
+.dark .premium-shadow {
+  box-shadow: 
+    0 20px 40px -15px hsl(0 0% 0% / 0.4),
+    0 10px 20px -10px hsl(0 0% 0% / 0.3),
+    0 4px 8px -4px hsl(0 0% 0% / 0.2);
+}
+
+.premium-glass-card {
+  background: hsl(var(--card) / 0.7);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border: 1px solid hsl(var(--border) / 0.5);
+  box-shadow: inset 0 1px 0 0 hsl(0 0% 100% / 0.05);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(280 80% 60%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ─── iOS-like base styles ─── */
@@ -223,4 +258,72 @@ body {
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+/* ─── Floating Pill Navbar ─── */
+.floating-navbar {
+  background: hsl(var(--background) / 0.82);
+  backdrop-filter: saturate(200%) blur(30px);
+  -webkit-backdrop-filter: saturate(200%) blur(30px);
+  border-radius: 9999px;
+  border: 1px solid hsl(var(--border) / 0.2);
+  box-shadow:
+    0 8px 32px -8px hsl(0 0% 0% / 0.08),
+    0 2px 8px -2px hsl(0 0% 0% / 0.04),
+    inset 0 1px 0 hsl(0 0% 100% / 0.06);
+}
+
+.dark .floating-navbar {
+  background: hsl(var(--background) / 0.7);
+  border-color: hsl(0 0% 100% / 0.06);
+  box-shadow:
+    0 8px 32px -8px hsl(0 0% 0% / 0.4),
+    0 2px 8px -2px hsl(0 0% 0% / 0.2),
+    inset 0 1px 0 hsl(0 0% 100% / 0.04);
+}
+
+/* Logo gradient (blue-purple like screenshot) */
+.floating-nav-logo {
+  background: linear-gradient(135deg, hsl(240 80% 60%), hsl(270 80% 65%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Nav link hover underline effect */
+.floating-nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  right: 50%;
+  height: 2px;
+  background: hsl(var(--primary));
+  border-radius: 9999px;
+  transition: left 0.3s ease, right 0.3s ease;
+}
+
+.floating-nav-link:hover::before {
+  left: 16px;
+  right: 16px;
+}
+
+/* ─── Floating Mobile Menu ─── */
+.floating-mobile-menu {
+  background: hsl(var(--background) / 0.88);
+  backdrop-filter: saturate(200%) blur(30px);
+  -webkit-backdrop-filter: saturate(200%) blur(30px);
+  border-radius: 20px;
+  border: 1px solid hsl(var(--border) / 0.2);
+  box-shadow:
+    0 16px 48px -12px hsl(0 0% 0% / 0.12),
+    0 4px 16px -4px hsl(0 0% 0% / 0.06);
+}
+
+.dark .floating-mobile-menu {
+  background: hsl(var(--background) / 0.8);
+  border-color: hsl(0 0% 100% / 0.06);
+  box-shadow:
+    0 16px 48px -12px hsl(0 0% 0% / 0.5),
+    0 4px 16px -4px hsl(0 0% 0% / 0.3);
 }

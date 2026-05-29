@@ -25,7 +25,7 @@ export default function SavedPage() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 pb-8">
         <Skeleton className="h-8 w-48 mb-2" />
         <Skeleton className="h-5 w-72 mb-8" />
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -39,7 +39,7 @@ export default function SavedPage() {
 
   if (isError) {
     return (
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 text-center">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 pb-12 text-center">
         <p className="text-destructive mb-4">Failed to load saved colleges.</p>
         <Button onClick={() => window.location.reload()}>Retry</Button>
       </div>
@@ -47,7 +47,7 @@ export default function SavedPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 pb-8">
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
         <h1 className="text-3xl font-bold mb-2">Saved Colleges</h1>
         <p className="text-muted-foreground mb-8">

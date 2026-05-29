@@ -52,18 +52,21 @@ export function CollegeCard({ college, index = 0 }: CollegeCardProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
+      className="h-full"
     >
-      <Link href={`/college/${college.slug}`}>
-        <Card className="overflow-hidden card-hover ios-press group cursor-pointer h-full flex flex-col rounded-2xl border-border/40">
+      <Link href={`/college/${college.slug}`} className="block h-full outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-2xl">
+        <Card className="overflow-hidden card-hover premium-shadow group cursor-pointer h-full flex flex-col rounded-2xl border border-border/50 bg-card/80 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
           {/* Image */}
-          <div className="relative h-44 overflow-hidden bg-muted">
+          <div className="relative h-48 overflow-hidden bg-muted">
             <Image
               src={college.bannerImage || "https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80"}
               alt={college.name}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
+            {/* Subtle vignette for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/10 pointer-events-none" />
             <div className="absolute top-3 right-3 flex gap-1.5">
               <Badge className={getRatingBg(college.rating)}>
                 <Star className="h-3 w-3 mr-1 fill-current" />

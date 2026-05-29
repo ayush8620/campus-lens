@@ -34,7 +34,7 @@ export default function ComparePage() {
 
   if (selectedColleges.length < 2) {
     return (
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 pb-12">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-2">Compare Colleges</h1>
           <p className="text-muted-foreground">Add at least 2 colleges to compare side by side</p>
@@ -85,7 +85,7 @@ export default function ComparePage() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 pb-12">
         <Skeleton className="h-8 w-64 mb-8" />
         <div className="grid grid-cols-3 gap-6">
           {Array.from({ length: 3 }).map((_, i) => (
@@ -98,7 +98,7 @@ export default function ComparePage() {
 
   if (isError || !compareData) {
     return (
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 text-center">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 pb-12 text-center">
         <p className="text-destructive">Failed to load comparison data.</p>
         <Button className="mt-4" onClick={() => window.location.reload()}>Retry</Button>
       </div>
@@ -148,7 +148,7 @@ export default function ComparePage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 pb-8">
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold mb-1">Compare Colleges</h1>

@@ -51,7 +51,7 @@ export default function CollegesPage() {
   }
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 pb-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Explore Colleges</h1>
         <p className="text-muted-foreground">Discover top institutions across India</p>
@@ -74,8 +74,8 @@ export default function CollegesPage() {
       <div className="flex gap-8">
         {/* Desktop sidebar — hidden on mobile (filter is in search row above) */}
         <aside className="hidden lg:block w-72 shrink-0">
-          <div className="sticky top-20 rounded-xl border bg-card p-5">
-            <ScrollArea className="h-[calc(100vh-8rem)]">
+          <div className="sticky top-28 rounded-3xl premium-glass-card premium-shadow p-6">
+            <ScrollArea className="h-[calc(100vh-10rem)] pr-4">
               <FilterContent />
             </ScrollArea>
           </div>
