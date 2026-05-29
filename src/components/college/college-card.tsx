@@ -54,7 +54,7 @@ export function CollegeCard({ college, index = 0 }: CollegeCardProps) {
       transition={{ duration: 0.3, delay: index * 0.05 }}
     >
       <Link href={`/college/${college.slug}`}>
-        <Card className="overflow-hidden card-hover group cursor-pointer h-full flex flex-col">
+        <Card className="overflow-hidden card-hover ios-press group cursor-pointer h-full flex flex-col rounded-2xl border-border/40">
           {/* Image */}
           <div className="relative h-44 overflow-hidden bg-muted">
             <Image
@@ -121,7 +121,7 @@ export function CollegeCard({ college, index = 0 }: CollegeCardProps) {
 
             {/* Actions */}
             <div className="flex gap-2 mt-3 pt-3 border-t border-border/50">
-              <Button variant="default" size="sm" className="flex-1 text-xs" asChild>
+              <Button variant="default" size="sm" className="flex-1 text-xs rounded-xl h-9" asChild>
                 <span>View Details</span>
               </Button>
               {isSignedIn ? (
